@@ -34,6 +34,7 @@ const updateGroup = async (req, res, next) => {
 }
 
 const deleteGroup = async (req, res, next) => {
+  console.log(req.body);
   const result = await Osiris.findByIdAndDelete({_id:req.body._id});
 
   res.status(200).json({

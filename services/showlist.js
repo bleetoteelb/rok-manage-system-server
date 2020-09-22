@@ -31,6 +31,7 @@ const addShowlist = async (req, res, next) => {
 const deleteShowlist = async (req, res, next) => {
   const filter = { _id: req.params.id };
   const update = { $pull: { 'list': { title: req.body.title } } };
+  console.log(update);
 
   const result =  await Showlist.findByIdAndUpdate(filter, update, {new: true});
 
