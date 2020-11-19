@@ -5,6 +5,9 @@ const memberSchema = mongoose.Schema({
     type: String,
     required: [true, 'User must have a id'],
   },
+  accountNumber: {
+    type: String,
+  },
   power: {
     type: [Object],
   },

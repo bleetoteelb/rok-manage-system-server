@@ -10,13 +10,31 @@ const getAllMember = async (req, res, next) => {
 }
 
 const updateMember = async (req, res, next) => {
-  const filter = { _id: req.body._id };
-  const update = { $push: { power: req.body.power }};
-  const result = await Member.findByIdAndUpdate(filter,update,{new: true});
+  let result;
+  if(req.body.nickname) {
+    result = await updateNickname(req.body);
+    console.log(result);
+    if (!result) return next(Error('Error to update Member Nickname in memberService'));
+  }
+  if(req.body.power) {
+    result = await pushPower(req.body);
+    if (!result) return next(Error('Error to update Member Power in memberService'));
+  }
 
   res.status(200).json({
     data: result
   });
+}
+
+const updateNickname = async function(body) {
+  const filter = { _id: body._id };
+  const update = { nickname: body.nickname };
+  const result = await Member.findByIdAndUpdate(filter,update,{new: true});
+
+  if(result)
+    return result;
+  else
+    return null;
 }
 
 const pushPower = async function(body) {
@@ -44,7 +62,7 @@ const deleteMember = async (req, res, next) => {
 }
 
 const createMember = async (req, res, next) => {
-  const result = await Member.create(req.body);
+  const result = await Member.create({nickname:req.body.nickname});
 
   if(req.body.power) {
     const body = {

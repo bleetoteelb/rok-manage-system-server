@@ -72,22 +72,11 @@ const registerMember2 = async (req, res, next) => {
   let result;
   let msg = "DONE";
   const num = await getGroupCount(req.body.group);
-  console.log(num);
-  if (num >= 30) {
+  if (num >= 60) {
     msg = "OVER";
   } else {
-    const isExist = await Member.findOne(filter);
     const update = { group: req.body.group };
-    if (isExist) {
-      result = await Member.findOneAndUpdate(filter,update, {new:true})
-      msg = "UPDATE";
-      console.log(msg);
-      console.log(result);
-    } else {
-      result = await Member.create({nickname: req.body.nickname, group: req.body.group });
-      msg = "NEW";
-      console.log(msg);
-    }
+    result = await Member.findOneAndUpdate(filter,update, {new:true})
   }
 
   res.status(200).json({
@@ -97,11 +86,10 @@ const registerMember2 = async (req, res, next) => {
 }
 
 const deleteMember = async (req, res, next) => {
-  const _id = req.body._id;
   const filter = { _id: req.body._id };
   const update = { $unset: { group: 1 }};
 
-  const result = await User.findByIdAndUpdate(filter, update, { new: true });
+  const result = await Member.findByIdAndUpdate(filter, update, { new: true });
 
   res.status(200).json({
     data: result
