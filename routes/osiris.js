@@ -14,8 +14,7 @@ router.get('/member/init',osirisService.deleteAllMember);
 /* GET home page. */
 router.route('/member')
   .get(osirisService.getAllMembers)
-  .post(osirisService.registerMember2)
-  .patch(osirisService.registerMember)
+  .post(osirisService.registerMember)
   .delete(osirisService.deleteMember)
 
 module.exports = router;

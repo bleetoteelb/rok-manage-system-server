@@ -3,41 +3,31 @@ const mongoose = require('mongoose');
 const memberSchema = mongoose.Schema({
   nickname: {
     type: String,
-    required: [true, 'User must have a id'],
+    required: [true, 'User must have nickname'],
   },
   accountNumber: {
-    type: String,
+    type: Number,
+    required: [true, 'User must have accountNumber'],
   },
   power: {
-    type: [Object],
+    type: Number,
+    required: [true, 'User must have power'],
   },
-  death: {
-    type: [Object],
-  },
-  kill: {
-    type: [Object],
-  },
-  give: {
-    type: [Object],
-  },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+  join: {
+    type: Boolean,
+    default: false
   },
   group: {
     type: String
-  }
+  },
+  commanders: {
+    type: String
+  },
+  updated: {
+    type: Boolean,
+    default: false
+  },
 });
-
-memberSchema.pre(/^find/, function (next) {
-  this.populate({
-    path: 'user',
-    select: '_id id',
-  });
-
-  next();
-});
-
 
 const Member = mongoose.model('Member', memberSchema);
 
