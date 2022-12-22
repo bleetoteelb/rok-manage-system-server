@@ -13,7 +13,7 @@
     "express": "~4.16.1",
     "express-asyncify": "^1.0.1",
     "http-errors": "~1.6.3",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^5.9.26",
     "mongoose-plugin-autoinc": "^1.1.9",
     "morgan": "~1.9.1",
